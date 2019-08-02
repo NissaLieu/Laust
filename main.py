@@ -16,7 +16,14 @@ class MainPage(webapp2.RequestHandler):
     def get(self): #for a get request
         webpage = the_jinja_env.get_template('templates/main.html')
         self.response.write(webpage.render())
+       
+class ShowMeIt(webapp2.RequestHandler):
+    def post(self):
+        results_template = the_jinja_env.get_template('templates/results.html')
+        self.response.write(results_template.render())
+
 
 app = webapp2.WSGIApplication([
     ('/', MainPage), #this maps root url to MainPage class
+    ('/results', ShowMeIt) #this maps root url to a results page after user enters input    
     ], debug=True)
