@@ -14,20 +14,9 @@ the_jinja_env = jinja2.Environment(
 #handlers section
 class MainPage(webapp2.RequestHandler):
     def get(self): #for a get request
-        self.response.headers['Content-Type'] = 'text/html'
-        self.response.write('<h1> Hello CSSI </h1> <p>Hello, World!</p>')
-
-class memeGenerator(webapp2.RequestHandler):
-    def get(self): #the get request
-        welcome_template = the_jinja_env.get_template('templates/welcome.html')
-        the_variable_dict = {
-                "line1": "If Cinderella's shoe was a perfect fit",
-                "line2": "Why did it fall off?",
-                "img_url": "https://upload.wikimedia.org/wikipedia/commons/f/ff/Deep_in_thought.jpg"
-                }
-        self.response.write(welcome_template.render(the_variable_dict))
+        webpage = the_jinja_env.get_template('templates/main.html')
+        self.response.write(webpage.render())
 
 app = webapp2.WSGIApplication([
     ('/', MainPage), #this maps root url to MainPage class
-    ('/mg', memeGenerator),
     ], debug=True)
